@@ -1,0 +1,30 @@
+<project name="ComplexNumberApp" basedir=".." default="run">
+	<target name="clean" description="swachh environment abhiyaan">
+        <delete dir="out"/>
+    </target>
+    <target name="compile" depends="clean, setupSounds">
+        <mkdir dir="out"/>
+        <javac srcdir="src" destdir="out" includeantruntime="false"/>
+        <javac srcdir="test" destdir="out" classpath="lib/junit-4.12.jar" includeantruntime="false"/>
+    </target>
+    <target name="test" depends="compile">
+    	<junit printsummary="on" showoutput="Yes">
+    		<classpath>
+    			<pathelement location="out"></pathelement>
+    			<pathelement location="lib/junit-4.12.jar"></pathelement>
+    			<pathelement location="lib/hamcrest-core-1.3.jar"></pathelement>
+    		</classpath>
+    		<test name="ComplexNumberTest"></test>
+    	</junit>
+    </target>
+    <target name="run" depends="compile">
+		<java classname="Sample" classpath="out">
+		</java>
+    </target>
+    <target name="setupSounds">
+		<sound>
+			<success source="build/success.wav"></success>
+			<fail source="build/failure.wav"></fail>
+		</sound>
+    </target>
+</project>
